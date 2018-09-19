@@ -1,1 +1,2 @@
-react-sample-docker
+
+repository created for presentation at front-end meetup
