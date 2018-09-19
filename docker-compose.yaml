@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  nginx: 
+    build:
+      dockerfile: ./docker/nginx.dockerfile
+      context: .
+    image: sample/nginx
+    container_name: nginx
+    ports:
+     - "80:80"
+    networks:
+     - production-network
+    depends_on:
+        - "node1"
+        - "node2"
+        - "node3"
+
+  node1:
+    build:
+      dockerfile: ./docker/dockerfile
+      context: .
+    image: react-sample
+    container_name: react_sample_1
+    ports:
+      - "5000"
+    networks: 
+      - production-network
+
+  node2:
+    build:
+      dockerfile: ./docker/dockerfile
+      context: .
+    image: react-sample
+    container_name: react_sample_2
+    ports:
+      - "5000"
+    networks: 
+      - production-network     
+      
+  node3:
+    build:
+      dockerfile: ./docker/dockerfile
+      context: .
+    image: react-sample
+    container_name: react_sample_3
+    ports:
+      - "5000"
+    networks: 
+      - production-network     
+
+networks:
+  production-network:
+    driver: bridge
